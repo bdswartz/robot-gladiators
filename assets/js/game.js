@@ -146,7 +146,7 @@ var startGame = function() {
       if (playerInfo.health > 0) {
           window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
           var pickedEnemyObj = enemyInfo[i];
-          pickedEnemyObj.health = randomNumber(40, 60);
+          pickedEnemyObj.health = randomNumber(20, 30);
           fight(pickedEnemyObj);
           if (playerInfo.health > 0 && i < enemyInfo.length - 1)
           shop();
@@ -162,6 +162,15 @@ var startGame = function() {
       // window.alert("The game has ended.  Let's see how you did!")
       if (playerInfo.health > 0) {
         window.alert("Great job, you have survived the game! You now have a score of " + playerInfo.money + ".");
+        var currentHighScore = Number(localStorage.getItem("highScore"));
+        if (playerInfo.money > currentHighScore) {
+          localStorage.setItem("highScore",playerInfo.money);
+          localStorage.setItem("highScorePlayer",playerInfo.name);
+          window.alert("You have set a new high score. Congratulations!")
+        }
+        else {
+          window.alert("You did not set a new high score.  Better luck next time!")
+        };
       }
       else {
         window.alert("You've lost your robot in battle.");
