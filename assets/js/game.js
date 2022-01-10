@@ -87,11 +87,17 @@ var fightOrSkip = function() {
     return false;
 };
 var fight = function(enemy) {
+    var isPlayerTurn = true;
+    if (Math.random() > 0.5) {
+      isPlayerTurn = false;
+    };
     while(playerInfo.health > 0 && enemy.health > 0) {
-      if (fightOrSkip()) {
-        // if true, leave fight by breaking loop
-        break;
-      }
+      if (isPlayerTurn) {
+        isPlayerTurn = false;
+        if (fightOrSkip()) {
+          // if true, leave fight by breaking loop
+          break;
+        }
       // generate random damage value based on player's attack power
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
         enemy.health = Math.max(0, enemy.health - damage);
@@ -109,6 +115,9 @@ var fight = function(enemy) {
             else {
             window.alert(enemy.name + " still has " + enemy.health + " health left.");
         }
+      }
+      else {
+        isPlayerTurn = true;
         // Subtract the value of `enemy.attack` from the value of `playerInfo.health` and use that result to update the value in the `playerInfo.health` variable.
 
         // generate random damage value based on enemy's attack power
@@ -126,6 +135,7 @@ var fight = function(enemy) {
         else {
             window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
         }
+      }
     }
 };
 
